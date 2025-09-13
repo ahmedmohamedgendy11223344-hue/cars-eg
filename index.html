@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>سيارات العرب | شركة السيارات الفاخرة</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- خط القاهرة من جوجل -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: #151a25;
+      color: #e2e6f0;
+      direction: rtl;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+    .animated-bg {
+      position: fixed;
+      left: 0; top: 0; right: 0; bottom: 0;
+      z-index: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .bg-gradient-blob {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.35;
+      filter: blur(70px);
+      animation: blobMove 22s linear infinite alternate;
+      will-change: transform;
+      transition: opacity .3s;
+    }
+    .bg-blob1 {
+      width: 650px; height: 650px;
+      background: radial-gradient(circle, #4361ee 0%, #151a25 90%);
+      right: -140px; top: -200px;
+      animation-delay: 0s;
+      opacity: 0.40;
+    }
+    .bg-blob2 {
+      width: 450px; height: 450px;
+      background: radial-gradient(circle, #f72585 0%, #3a2232 90%);
+      left: -140px; bottom: -120px;
+      opacity: 0.28;
+      animation-delay: 7s;
+    }
+    .bg-blob3 {
+      width: 330px; height: 330px;
+      background: radial-gradient(circle, #4361ee 0%, #151a25 100%);
+      left: 38vw; top: 68vh;
+      opacity: 0.18;
+      animation-delay: 12s;
+    }
+    @keyframes blobMove {
+      0%   { transform: scale(1) translate(0,0);}
+      25%  { transform: scale(1.1) translate(-30px, 40px);}
+      50%  { transform: scale(0.95) translate(60px, -40px);}
+      75%  { transform: scale(1.07) translate(-40px, 30px);}
+      100% { transform: scale(1) translate(0,0);}
+    }
+    header, .section, .hero-section, footer {
+      position: relative;
+      z-index: 2;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      width: 100vw;
+      background: rgba(22,28,44,0.97);
+      box-shadow: 0 2px 12px #000c;
+      z-index: 100;
+      transition: box-shadow 0.3s;
+      backdrop-filter: blur(6px);
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .logo-animated {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.45rem;
+      font-weight: bold;
+      color: #7cc0ff;
+      letter-spacing: 1px;
+      animation: logoPulse 2.8s cubic-bezier(.57,.21,.69,1.25) infinite alternate;
+      text-shadow: 0 0 8px #4361ee77, 0 0 2px #fff1;
+    }
+    /* إزالة أيقونة العربية بجانب اسم سيارات العرب في الهيدر */
+    .logo-animated .car-icon {
+      display: none !important;
+    }
+    @keyframes logoPulse {
+      0% { color: #7cc0ff; letter-spacing: 1px;}
+      50% { color: #9be6fd; letter-spacing: 3px;}
+      100% { color: #4361ee; letter-spacing: 2px;}
+    }
+    @keyframes logoCarShake {
+      0% { transform: rotate(-5deg) scale(1);}
+      18% { transform: rotate(7deg) scale(1.11);}
+      38% { transform: rotate(-4deg) scale(1.09);}
+      60% { transform: rotate(4deg) scale(1.08);}
+      82% { transform: rotate(-3deg) scale(1.03);}
+      100% { transform: rotate(0) scale(1);}
+    }
+    nav {
+      display: flex;
+      gap: 32px;
+    }
+    nav button {
+      background: none;
+      border: none;
+      font: inherit;
+      font-size: 1.08rem;
+      cursor: pointer;
+      color: #b6c1db;
+      transition: color 0.2s, border-bottom 0.2s;
+      font-weight: 500;
+      border-bottom: 2.5px solid transparent;
+      padding: 0 2px;
+    }
+    nav button.active,
+    nav button:hover {
+      color: #72b8ff;
+      border-bottom: 2.5px solid #4361ee;
+    }
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #b6c1db;
+    }
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: #181f31;
+      position: absolute;
+      top: 72px;
+      right: 0;
+      width: 100%;
+      box-shadow: 0 4px 12px #0009;
+      border-top: 1px solid #333a55;
+      z-index: 101;
+      animation: fadeInMenu .2s;
+    }
+    @keyframes fadeInMenu {
+      from { opacity: 0; transform: translateY(-12px);}
+      to   { opacity: 1; transform: translateY(0);}
+    }
+    .mobile-menu button {
+      padding: 14px 24px;
+      border: none;
+      background: none;
+      text-align: right;
+      font-size: 1.04rem;
+      color: #b6c1db;
+      border-bottom: 1px solid #333a55;
+      transition: background .15s, color .15s;
+    }
+    .mobile-menu button.active,
+    .mobile-menu button:hover {
+      background: #222b41;
+      color: #7cc0ff;
+    }
+    @media (max-width: 900px) {
+      nav { display: none; }
+      .menu-toggle { display: block; }
+    }
+    @media (max-width: 900px) {
+      .nav-container { padding: 0 6px; }
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s cubic-bezier(.26,.75,.34,1), transform 0.9s cubic-bezier(.26,.75,.34,1);
+      will-change: opacity,transform;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .section, .hero-section {
+      z-index: 2;
+      position: relative;
+    }
+    .hero-section {
+      background: transparent;
+      padding: 110px 0 60px 0;
+      margin-top: 72px;
+      min-height: 65vh;
+    }
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      padding: 0 16px;
+      flex-wrap: wrap;
+    }
+    .hero-text {
+      flex: 1 1 350px;
+      min-width: 260px;
+      margin-bottom: 32px;
+    }
+    .hero-text h2 {
+      font-size: 2.1rem;
+      font-weight: bold;
+      margin-bottom: 18px;
+      color: #7cc0ff;
+      line-height: 1.22;
+      text-shadow: 0 0 10px #4361ee33;
+    }
+    .hero-text p {
+      font-size: 1.2rem;
+      color: #b6c1db;
+      margin-bottom: 26px;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .hero-actions button,
+    .hero-actions a {
+      border: none;
+      outline: none;
+      padding: 13px 28px;
+      border-radius: 9px;
+      font-size: 1.08rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border 0.2s, box-shadow .15s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+      box-shadow: 0 1px 8px #4361ee1a;
+    }
+    .hero-actions .primary {
+      background: linear-gradient(90deg,#4361ee 60%,#7cc0ff 100%);
+      color: #fff;
+      border: 1.5px solid #4361ee;
+      box-shadow: 0 2px 10px #4361ee33;
+    }
+    .hero-actions .primary:hover {
+      background: #18337f;
+      border-color: #18337f;
+      color: #fff;
+    }
+    .hero-actions .secondary {
+      background: #222b41;
+      color: #7cc0ff;
+      border: 1.5px solid #4361ee;
+    }
+    .hero-actions .secondary:hover {
+      background: #2d395b;
+      color: #fff;
+      border-color: #7cc0ff;
+    }
+    .hero-img {
+      flex: 1 1 340px;
+      min-width: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* تكبير حجم صورة المقدمة للضعف */
+    .hero-img img {
+      width: 100%;
+      max-width: 880px;
+      border-radius: 18px;
+      box-shadow: 0 6px 32px #000a;
+      object-fit: cover;
+      aspect-ratio: 3/2;
+      background: #1a2233;
+      min-width: 440px;
+      min-height: 293px;
+    }
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 16px;
+    }
+    .section-title {
+      font-size: 2rem;
+      color: #7cc0ff;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px #4361ee33;
+    }
+    .section-subtitle {
+      font-size: 1.13rem;
+      color: #b6c1db;
+      text-align: center;
+      margin-bottom: 42px;
+      line-height: 1.7;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .about-feats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 32px;
+    }
+    .feat-card {
+      background: #232b3e;
+      padding: 34px 22px 26px 22px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 2px 22px #111a2f44;
+      transition: box-shadow .2s, transform .18s, opacity .7s, transform .7s;
+      opacity: 0;
+      transform: translateY(40px);
+      will-change: opacity,transform;
+      border: 1.5px solid #22305a;
+    }
+    .feat-card.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .feat-card .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px auto;
+      font-size: 2.8rem;
+      color: #7cc0ff;
+      text-shadow: 0 0 10px #4361ee88;
+    }
+    .feat-card h3 {
+      font-size: 1.18rem;
+      font-weight: bold;
+      color: #7cc0ff;
+      margin-bottom: 10px;
+      margin-top: 0;
+      text-shadow: 0 0 4px #4361ee33;
+    }
+    .feat-card p {
+      color: #b6c1db;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .feat-card:hover {
+      box-shadow: 0 8px 32px #4361ee44;
+      transform: translateY(-7px) scale(1.045);
+      border-color: #7cc0ff;
+    }
+    .feat-card input,
+    .feat-card textarea {
+      background: #181f31;
+      color: #e2e6f0;
+      border: 1.2px solid #4361ee99;
+    }
+    .feat-card input:focus,
+    .feat-card textarea:focus {
+      background: #232b3e;
+      border-color: #7cc0ff;
+      outline: none;
+    }
+    .footer-link { color:#b6c1db;text-decoration:none;transition:color .2s;}
+    .footer-link:hover { color:#7cc0ff;text-decoration:underline;}
+    footer {
+      background:#181f31;
+      color:#fff;
+      padding:38px 0 0 0;
+      margin-top:40px;
+      z-index: 2;
+      position: relative;
+    }
+    @media (max-width: 800px) {
+      .hero-content { flex-direction: column; }
+      .hero-text, .hero-img { min-width: unset; }
+      .hero-img img { max-width: 100vw; min-width: unset; }
+    }
+    @media (max-width: 500px) {
+      .section, .hero-content { padding: 0 2vw; }
+      .section-title { font-size: 1.2rem; }
+      .hero-section { padding: 70px 0 40px 0; }
+      .logo-animated { font-size: 1.07rem; }
+      .hero-img img { max-width: 99vw; min-width: unset; }
+    }
+    /* زر التفاصيل وزر عرض جميع السيارات في معرض السيارات باللون الفضي فقط */
+    .vehicles-silver-btn {
+      background: none !important;
+      border: none !important;
+      color: #c0c0c0 !important;
+      font-weight: bold;
+      padding: 7px 18px;
+      font-size: 1.08em;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      cursor: pointer;
+      text-decoration: underline;
+      transition: color .2s;
+      display: inline-block;
+    }
+    .vehicles-silver-btn:hover {
+      color: #a0a0a0 !important;
+    }
+  </style>
+</head>
+<body>
+<div class="animated-bg">
+  <div class="bg-gradient-blob bg-blob1"></div>
+  <div class="bg-gradient-blob bg-blob2"></div>
+  <div class="bg-gradient-blob bg-blob3"></div>
+</div>
+
+<header>
+  <div class="nav-container">
+    <div class="logo-animated">سيارات العرب</div>
+    <nav id="main-nav">
+      <button class="active" data-section="home">الرئيسية</button>
+      <button data-section="about">عن الشركة</button>
+      <button data-section="vehicles">معرض السيارات</button>
+      <button data-section="services">خدماتنا</button>
+      <button data-section="contact">اتصل بنا</button>
+    </nav>
+    <button class="menu-toggle" id="menu-toggle" aria-label="قائمة الجوال">☰</button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <button class="active" data-section="home">الرئيسية</button>
+    <button data-section="about">عن الشركة</button>
+    <button data-section="vehicles">معرض السيارات</button>
+    <button data-section="services">خدماتنا</button>
+    <button data-section="contact">اتصل بنا</button>
+  </div>
+</header>
+
+<section class="hero-section fade-in" id="home">
+  <div class="hero-content">
+    <div class="hero-text">
+      <h2>شركة سيارات العرب للسيارات الفاخرة</h2>
+      <p>نوفر لك أفضل السيارات من مختلف الماركات العالمية بأسعار تنافسية وخدمة ما بعد البيع المتميزة</p>
+      <div class="hero-actions">
+        <button class="primary" data-section="vehicles">تصفح السيارات <span style="font-size:1.2em;vertical-align:middle;">&#8592;</span></button>
+        <button class="secondary" data-section="contact">احجز موعد</button>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2936506a-dead-494d-8aad-4be743cc4507.png" alt="سيارة فاخرة بيضاء في الطريق مع إضاءة طبيعية جميلة وتصميم أنيق وعصري">
+    </div>
+  </div>
+</section>
+
+<section class="section fade-in" id="about">
+  <h2 class="section-title">عن شركتنا</h2>
+  <div class="section-subtitle">
+    نحن رواد في مجال تجارة السيارات لأكثر من 20 عاماً، نقدم لزبائننا الكرام أفضل تجربة شراء مع ضمان الجودة والخدمة المتميزة
+  </div>
+  <div class="about-feats">
+    <div class="feat-card">
+      <div class="icon">👥</div>
+      <h3>أكثر من 5000 عميل راضٍ</h3>
+      <p>اكتسبنا ثقة الآلاف من العملاء بفضل جودة خدمتنا واهتمامنا بتجربتهم</p>
+    </div>
+    <div class="feat-card">
+      <div class="icon">🛡️</div>
+      <h3>ضمان الجودة</h3>
+      <p>جميع سياراتنا تخضع لفحص دقيق وضمان شامل لضمان راحتك وأمانك على الطريق</p>
+    </div>
+    <div class="feat-card">
+      <div class="icon">⏰</div>
+      <h3>خدمة على مدار الساعة</h3>
+      <p>فريق دعم فني متاح على مدار الساعة لمساعدتك في أي استفسار أو طوارئ</p>
+    </div>
+  </div>
+</section>
+
+<section class="section fade-in" id="vehicles">
+  <h2 class="section-title">معرض السيارات</h2>
+  <div class="section-subtitle">استكشف مجموعتنا المتميزة من السيارات الجديدة والمستعملة بأفضل الأسعار</div>
+  <div class="about-feats" style="gap:24px;">
+    <div class="feat-card" style="box-shadow:none;">
+      <img src="https://motor283.com/uploads/articles/3931/792x492/motor283-%D8%AA%D8%A3%D9%84%D9%82-%D8%A7%D9%84%D8%A3%D9%86%D8%A7%D9%82%D8%A9-%D9%88%D8%A7%D9%84%D8%A3%D8%AF%D8%A7%D8%A1-%D8%A3%D9%81%D8%B6%D9%84-%D8%AE%D9%85%D8%B3-%D8%B3%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA-%D8%B3%D9%8A%D8%AF%D8%A7%D9%86-%D9%84%D8%B9%D8%A7%D9%85-2023-1705883400479.webp" alt="سيارة سيدان" style="width:100%;border-radius:11px;margin-bottom:14px;">
+      <h3>سيارة سيدان 2023</h3>
+      <div style="color:#facc15;font-size:1.15em;margin-bottom:6px;">
+        ★★★★★ <span style="color:#b6c1db;font-size:.95em;">(4.9)</span>
+      </div>
+      <p>سيارة عائلية فاخرة بتقنيات حديثة وتصميم مريح للرحلات الطويلة.</p>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:18px;">
+        <span style="color:#7cc0ff;font-weight:bold;font-size:1.1em;">2,070,000 جنيه مصري</span>
+        <a href="#" class="vehicles-silver-btn">التفاصيل</a>
+      </div>
+    </div>
+    <div class="feat-card" style="box-shadow:none;">
+      <img src="https://auto.ahram.org.eg/Media/News/2024/7/3/19_2024-638556257034182848-418.jpg" alt="سيارة دفع رباعي" style="width:100%;border-radius:11px;margin-bottom:14px;">
+      <h3>دفع رباعي 2024</h3>
+      <div style="color:#facc15;font-size:1.15em;margin-bottom:6px;">
+        ★★★★★ <span style="color:#b6c1db;font-size:.95em;">(4.8)</span>
+      </div>
+      <p>دفع رباعي متين مع تقنيات أمان متطورة وقدرة فائقة على الطرق الوعرة.</p>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:18px;">
+        <span style="color:#7cc0ff;font-weight:bold;font-size:1.1em;">3,110,000 جنيه مصري</span>
+        <a href="#" class="vehicles-silver-btn">التفاصيل</a>
+      </div>
+    </div>
+    <div class="feat-card" style="box-shadow:none;">
+      <img src="https://static.overfuel.com/dealers/tlc-motors/image/Chevrolet_Corvette_Spartanburg_SC.jpg" alt="سيارة رياضية" style="width:100%;border-radius:11px;margin-bottom:14px;">
+      <h3>سيارة رياضية 2023</h3>
+      <div style="color:#facc15;font-size:1.15em;margin-bottom:6px;">
+        ★★★★★ <span style="color:#b6c1db;font-size:.95em;">(4.9)</span>
+      </div>
+      <p>سيارة رياضية عالية الأداء بمحرك قوي وتصميم أنيق ينبض بالحيوية.</p>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:18px;">
+        <span style="color:#7cc0ff;font-weight:bold;font-size:1.1em;">4,320,000 جنيه مصري</span>
+        <a href="#" class="vehicles-silver-btn">التفاصيل</a>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin:36px 0 0 0;">
+    <a href="#" class="vehicles-silver-btn" style="font-size:1.1em;">عرض جميع السيارات</a>
+  </div>
+</section>
+
+<section class="section fade-in" id="services">
+  <h2 class="section-title">خدماتنا</h2>
+  <div class="section-subtitle">
+    نقدم مجموعة متكاملة من الخدمات لضمان تجربة شراء واستخدام سيارة ممتازة
+  </div>
+  <div class="about-feats" style="gap:24px;">
+    <div class="feat-card">
+      <div class="icon">🚗</div>
+      <h3>بيع السيارات</h3>
+      <p>نوفر مجموعة واسعة من السيارات الجديدة والمستعملة بضمان الجودة.</p>
+    </div>
+    <div class="feat-card">
+      <div class="icon">🛡️</div>
+      <h3>الصيانة والضمان</h3>
+      <p>خدمات صيانة شاملة وضمان على جميع السيارات لراحة بالك.</p>
+    </div>
+    <div class="feat-card">
+      <div class="icon">📞</div>
+      <h3>التمويل</h3>
+      <p>حلول تمويلية متنوعة تناسب احتياجاتك مع أفضل الشروط والفوائد.</p>
+    </div>
+    <div class="feat-card">
+      <div class="icon">📍</div>
+      <h3>توصيل السيارة</h3>
+      <p>نقوم بتوصيل السيارة إلى منزلك أو مقر عملك في أي مكان.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section fade-in" id="contact">
+  <h2 class="section-title">اتصل بنا</h2>
+  <div class="section-subtitle">
+    نحن هنا لمساعدتك في اختيار السيارة المناسبة وتقديم كافة الاستشارات المجانية
+  </div>
+  <div class="about-feats" style="gap:32px;">
+    <div class="feat-card" style="text-align:right;">
+      <h3 style="text-align:center">معلومات التواصل</h3>
+      <div style="margin-bottom:18px;">
+        <div style="display:flex;align-items:flex-start;margin-bottom:10px;">
+          <span class="icon" style="font-size:1.2em;">📞</span>
+          <div style="margin-right:11px;">
+            <b>الهاتف</b>
+            <p style="margin:0;color:#b6c1db">+966 12 345 6789</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;margin-bottom:10px;">
+          <span class="icon" style="font-size:1.2em;">✉️</span>
+          <div style="margin-right:11px;">
+            <b>البريد الإلكتروني</b>
+            <p style="margin:0;color:#b6c1db">info@arabcars.com</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;">
+          <span class="icon" style="font-size:1.2em;">📍</span>
+          <div style="margin-right:11px;">
+            <b>العنوان</b>
+            <p style="margin:0;color:#b6c1db">حي المدينة، شارع الملك فهد، الرياض، المملكة العربية السعودية</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <b>ساعات العمل</b>
+        <p style="color:#b6c1db;margin:0;">من السبت إلى الخميس: 8 صباحاً - 10 مساءً</p>
+        <p style="color:#b6c1db;margin:0;">الجمعة: 4 مساءً - 10 مساءً</p>
+      </div>
+    </div>
+    <div class="feat-card" style="text-align:right;">
+      <h3 style="text-align:center">أرسل لنا رسالة</h3>
+      <form autocomplete="off" onsubmit="event.preventDefault();alert('تم إرسال الرسالة بنجاح!');this.reset();">
+        <label>الاسم الكامل</label>
+        <input type="text" required style="width:100%;margin:6px 0 12px 0;padding:9px 7px;border:1px solid #4361ee99;border-radius:7px;background:#181f31;color:#fff;">
+        <label>البريد الإلكتروني</label>
+        <input type="email" required style="width:100%;margin:6px 0 12px 0;padding:9px 7px;border:1px solid #4361ee99;border-radius:7px;background:#181f31;color:#fff;">
+        <label>رقم الهاتف</label>
+        <input type="tel" style="width:100%;margin:6px 0 12px 0;padding:9px 7px;border:1px solid #4361ee99;border-radius:7px;background:#181f31;color:#fff;">
+        <label>الرسالة</label>
+        <textarea rows="3" required style="width:100%;margin:6px 0 14px 0;padding:9px 7px;border:1px solid #4361ee99;border-radius:7px;resize:vertical;background:#181f31;color:#fff;"></textarea>
+        <button type="submit" class="primary" style="width:100%;padding:12px 0;margin-top:9px;">إرسال الرسالة</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer style="background:#181f31;color:#fff;padding:38px 0 0 0;margin-top:40px;">
+  <div style="max-width:1200px;margin:auto;padding:0 16px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:38px;">
+      <div>
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px;">
+          <span class="car-icon" style="background:#4361ee;color:#fff;">🚗</span>
+          <span style="font-size:1.2em;font-weight:bold;">سيارات العرب</span>
+        </div>
+        <p style="color:#b6c1db;margin-bottom:20px;">نوفر لكم أفضل السيارات والخدمات مع ضمان الجودة والراحة الكاملة.</p>
+        <div style="display:flex;gap:13px;">
+          <a href="#" style="width:33px;height:33px;border-radius:50%;background:#232b3e;display:flex;align-items:center;justify-content:center;color:#7cc0ff;font-size:1.1em;text-decoration:none;" title="فيسبوك">ف</a>
+          <a href="#" style="width:33px;height:33px;border-radius:50%;background:#232b3e;display:flex;align-items:center;justify-content:center;color:#7cc0ff;font-size:1.1em;text-decoration:none;" title="تويتر">ت</a>
+          <a href="#" style="width:33px;height:33px;border-radius:50%;background:#232b3e;display:flex;align-items:center;justify-content:center;color:#7cc0ff;font-size:1.1em;text-decoration:none;" title="إنستغرام">إ</a>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:1.1em;font-weight:bold;margin-bottom:14px;">روابط سريعة</h3>
+        <ul style="list-style:none;padding:0;margin:0;line-height:2;">
+          <li><a href="#home" class="footer-link">الرئيسية</a></li>
+          <li><a href="#about" class="footer-link">عن الشركة</a></li>
+          <li><a href="#vehicles" class="footer-link">معرض السيارات</a></li>
+          <li><a href="#services" class="footer-link">خدماتنا</a></li>
+          <li><a href="#contact" class="footer-link">اتصل بنا</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="font-size:1.1em;font-weight:bold;margin-bottom:14px;">خدماتنا</h3>
+        <ul style="list-style:none;padding:0;margin:0;line-height:2;">
+          <li><a href="#" class="footer-link">بيع السيارات</a></li>
+          <li><a href="#" class="footer-link">الصيانة والضمان</a></li>
+          <li><a href="#" class="footer-link">التمويل</a></li>
+          <li><a href="#" class="footer-link">توصيل السيارة</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="font-size:1.1em;font-weight:bold;margin-bottom:14px;">النشرة البريدية</h3>
+        <p style="color:#b6c1db;margin-bottom:13px;">اشترك في نشرتنا البريدية لتصلك آخر العروض والأخبار</p>
+        <form onsubmit="event.preventDefault();alert('تم الاشتراك بنجاح!');this.reset();" autocomplete="off" style="display:flex;">
+          <input type="email" required placeholder="بريدك الإلكتروني" style="flex:1 1 90px;border-radius:7px 0 0 7px;padding:8px 7px;border:1px solid #4361ee99;background:#181f31;color:#fff;">
+          <button type="submit" style="border-radius:0 7px 7px 0;background:#4361ee;color:#fff;border:none;padding:8px 18px;font-weight:bold;cursor:pointer;">اشترك</button>
+        </form>
+      </div>
+    </div>
+    <div style="border-top:1.5px solid #232b3e;margin-top:34px;padding:25px 0 0 0;text-align:center;color:#b6c1db;font-size:1em;">
+      © 2025 شركة سيارات العرب. جميع الحقوق محفوظة.
+    </div>
+  </div>
+</footer>
+
+<script>
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+const mainNav = document.getElementById('main-nav');
+const navBtns = mainNav.querySelectorAll('button');
+const mobileBtns = mobileMenu.querySelectorAll('button');
+const heroBtns = document.querySelectorAll('.hero-actions button');
+const footerLinks = document.querySelectorAll('.footer-link');
+
+function scrollToSection(id) {
+  const section = document.getElementById(id);
+  if(section) section.scrollIntoView({ behavior: 'smooth' });
+  navBtns.forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-section') === id));
+  mobileBtns.forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-section') === id));
+}
+navBtns.forEach(btn => {
+  btn.onclick = () => scrollToSection(btn.getAttribute('data-section'));
+});
+mobileBtns.forEach(btn => {
+  btn.onclick = () => {
+    scrollToSection(btn.getAttribute('data-section'));
+    mobileMenu.style.display = 'none';
+  };
+});
+heroBtns.forEach(btn => {
+  btn.onclick = () => scrollToSection(btn.getAttribute('data-section'));
+});
+footerLinks.forEach(link => {
+  link.onclick = (e) => {
+    e.preventDefault();
+    const id = link.getAttribute('href').replace('#', '');
+    scrollToSection(id);
+  };
+});
+menuToggle.onclick = () => {
+  mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+};
+window.onclick = e => {
+  if (mobileMenu.style.display === 'flex' && !mobileMenu.contains(e.target) && e.target !== menuToggle) {
+    mobileMenu.style.display = 'none';
+  }
+};
+function fadeInOnScroll() {
+  var faders = document.querySelectorAll('.fade-in, .feat-card');
+  var windowBottom = window.innerHeight + window.scrollY;
+  faders.forEach(el => {
+    var rect = el.getBoundingClientRect();
+    var elemTop = rect.top + window.scrollY;
+    if (windowBottom > elemTop + 80) {
+      el.classList.add('visible');
+    }
+  });
+}
+window.addEventListener('scroll', fadeInOnScroll);
+window.addEventListener('DOMContentLoaded', fadeInOnScroll);
+</script>
+</body>
+</html>
